@@ -58,7 +58,7 @@ def get_top_appointments(use_cache=False, cache_data=False):
         appointments = get_appointments_from_cache()
     else:
         appointments = fetch_appointments()
-    sorted_appointments = sorted(appointments, key=lambda x: (-x['score'], x['created_at']), reverse=True)
+    sorted_appointments = sorted(appointments, key=lambda x: (-x['score'], x['created_at']))
     top_appointments = sorted_appointments[:5]
     if cache_data:
         cache_appointments(appointments)
