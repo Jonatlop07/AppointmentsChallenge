@@ -21,12 +21,17 @@ I use a docker container to deploy the components (Database, Rest Api and ELT Sc
         and also to manage easily the parameters to create and update appointments, and to identify a single appointment (in order to query, delete or update it).
     -   Input data for appointments will be validated (ensuring that the type of the data is as expected, and in case of the field `score` it should be in the range [0, 5])
 
--   Next, run the following command to create and execute the ELT script container:
+-   Next, run the following command to create the ELT script container:
 
 `docker compose up elt --build -d`
 
--   To see the top 5 appointments retrieved by the ELT in json format, run the following command:
+-   To execute the ELT and see the top 5 appointments retrieved by the ELT in json format, run the following command:
 
-`docker compose logs elt`
+`docker exec etl python /app/appointments_elt.py --use-cache --cache-data`
+
+-   The parameters of the script are:
+
+    -   `--use-cache` tells the script to execute the logic on the last saved records on the cache. If there is no data in the cache, the GET request is made to retrieve the current appointments in the database.
+    -   `--cache-data` tells the script to save the retrieved appointments in the cache
 
 -   **Env file is committed for ease of configuration**

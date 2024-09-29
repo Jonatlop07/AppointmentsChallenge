@@ -10,7 +10,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application files to the container
-COPY appointments_etl.py .
+COPY appointments_elt.py .
 
-# Set the default command to execute the script
-CMD ["python", "appointments_etl.py"]
+# Make container run indifinitely
+CMD ["sleep", "infinity"]

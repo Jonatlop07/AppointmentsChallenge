@@ -35,17 +35,17 @@ services:
         networks:
             - appointments
 
-    etl:
+    elt:
         build:
-            context: ./etl
+            context: ./elt
             dockerfile: Dockerfile
-        container_name: etl
+        container_name: elt
         depends_on:
             - app
         environment:
             API_URL: http://app:9000/api
         volumes:
-            - ./etl:/app
+            - ./elt:/app
         networks:
             - appointments
 volumes:
