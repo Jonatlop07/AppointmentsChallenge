@@ -1,0 +1,52 @@
+networks:
+    appointments:
+        name: appointments
+
+services:
+    app:
+        container_name: appointments_app
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        volumes:
+            - .:/var/www
+        ports:
+            - "9000:9000"
+        depends_on:
+            - db
+        networks:
+            - appointments
+        command: >
+            sh -c "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=9000"
+
+    db:
+        container_name: appointments_db
+        image: postgres:15
+        restart: unless-stopped
+        volumes:
+            - dbdata:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_DB=appointments_db
+            - POSTGRES_USER=appointments_admin
+            - POSTGRES_PASSWORD=secret
+        ports:
+            - "5432:5432"
+        networks:
+            - appointments
+
+    etl:
+        build:
+            context: ./etl
+            dockerfile: Dockerfile
+        container_name: etl
+        depends_on:
+            - app
+        environment:
+            API_URL: http://app:9000/api
+        volumes:
+            - ./etl:/app
+        networks:
+            - appointments
+volumes:
+    dbdata:
