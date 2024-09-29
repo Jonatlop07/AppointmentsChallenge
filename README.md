@@ -2,7 +2,7 @@
 
 ## Setup and Running
 
-I use a docker container to deploy the components (Database, Rest Api and ELT Script)
+I use docker containers to deploy the components (Database, Rest Api and ELT Script)
 
 -   First, clone the repository.
 
