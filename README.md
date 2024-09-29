@@ -27,7 +27,7 @@ I use docker containers to deploy the components (Database, Rest Api and ELT Scr
 
 -   To execute the ELT and see the top 5 appointments retrieved by the ELT in json format, run the following command:
 
-`docker exec etl python /app/appointments_elt.py --use-cache --cache-data`
+`docker exec elt python /app/appointments_elt.py --use-cache --cache-data`
 
 -   The parameters of the script are:
 
